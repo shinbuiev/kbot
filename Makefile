@@ -1,6 +1,5 @@
 APP=$(shell basename $(shell git remote get-url origin))
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
-TARGETOS=linux
 REGISTRY=shinbuev
 TARGETOS=linux #linux darvin windows
 TARGETARCH=arm64 #amd64 arn64
@@ -38,6 +37,7 @@ push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
 
 clean:
+	(docker rmi ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH} || true) && (rm -rf kbot || true)
 	rm -rf kbot
 
 linux: 
