@@ -31,7 +31,7 @@ jobs:
   cd:
     name: CD
     needs: ci
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
