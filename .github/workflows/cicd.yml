@@ -2,6 +2,9 @@ name: KBOT_CICD
 
 on: push
 
+env:
+  TARGETARCH: amd64
+
 jobs:
   ci:
     name: CI
