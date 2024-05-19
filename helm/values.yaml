@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: shinbuev
+  repository: "shinbuev"
   tag: "v1.0.3-53b06a7"
   arch: amd64
 
@@ -13,3 +13,5 @@ secret:
   name: "kbot"
   env: "TELE_TOKEN"
   key: "token"
+securityContext:
+  privileged: true
