@@ -15,6 +15,8 @@ ifneq ($(filter arm%,$(UNAME_P)),)
 	TARGETARCH:=arm64
 endif
 
+REGISTRY=ghcr.io/shinbuiev/
+
 format:
 	gofmt -s -w ./
 
@@ -30,7 +32,7 @@ get:
 build: format get
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/shinbuiev/kbot/cmd.appVersion=${VERSION}
 
-image:
+image: format get build
 	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}  --build-arg TARGETARCH=${TARGETARCH}
 
 push:
