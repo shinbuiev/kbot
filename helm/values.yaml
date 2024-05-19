@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   registry: ghcr.io
   repository: shinbuiev/kbot
-  tag: "v1.0.6-256a186"
+  tag: "v1.0.6-f8f2b1b"
   os: "linux"
   arch: amd64
 secret:
