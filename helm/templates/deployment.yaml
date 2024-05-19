@@ -20,16 +20,26 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      dnsConfig:
+        nameservers:
+          - 1.1.1.1
+      volumes:
+      - hostPath:
+          path: /dev/mem
+          type: ""
+        name: dev-mem
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "helm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Release.Name }}
           image: {{ .Values.image.repository }}/{{ .Chart.Name }}:{{ .Values.image.tag }}-{{ .Values.image.arch | default "amd64"}}
+          volumeMounts:
+          - mountPath: /dev/mem
+            name: dev-mem
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           env:
@@ -40,10 +50,6 @@ spec:
                 name: {{ .Values.secret.name }}
           
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
