@@ -5,7 +5,7 @@
 replicaCount: 1
 image:
   repository: "shinbuev"
-  tag: "v1.0.6-256a186"
+  tag: "v1.0.6-6482da1"
   arch: amd64
 secret:
   name: "kbot"
